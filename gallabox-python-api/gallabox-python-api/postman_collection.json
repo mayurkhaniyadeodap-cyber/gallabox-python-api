@@ -1,0 +1,569 @@
+{
+  "info": {
+    "name": "DeoDap Gallabox FastAPI",
+    "_postman_id": "f0d9e935-5d2d-4f34-8c0d-9cf03f900001",
+    "description": "Postman collection for testing the FastAPI Gallabox backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "api_key",
+      "value": "your-external-api-key"
+    },
+    {
+      "key": "order_id",
+      "value": "262203508"
+    },
+    {
+      "key": "phone",
+      "value": "9876543210"
+    },
+    {
+      "key": "awb",
+      "value": "76963036231"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
+        }
+      }
+    },
+    {
+      "name": "Order Selection",
+      "item": [
+        {
+          "name": "Latest Order By Phone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{phone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/order-selection/latest",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "order-selection", "latest"]
+            }
+          }
+        },
+        {
+          "name": "Verify Entered Order With Current Phone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"{{order_id}}\",\n  \"currentPhone\": \"{{phone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/order-selection/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "order-selection", "verify"]
+            }
+          }
+        },
+        {
+          "name": "Verify Entered Order With Registered Phone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"{{order_id}}\",\n  \"currentPhone\": \"{{phone}}\",\n  \"verificationPhone\": \"{{phone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/order-selection/verify",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "order-selection", "verify"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shopify",
+      "item": [
+        {
+          "name": "Order Lookup By Order ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shopify/order-lookup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shopify", "order-lookup"]
+            }
+          }
+        },
+        {
+          "name": "Order Lookup By Phone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{phone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shopify/order-lookup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shopify", "order-lookup"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipping",
+      "item": [
+        {
+          "name": "Raw Tracking By Order No",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/tracking",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "tracking"]
+            }
+          }
+        },
+        {
+          "name": "Shipment Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"shipment_status\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Delivery Delayed",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"delay_in_shipment\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Out For Delivery Not Received",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"out_for_delivery_not_received\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Marked Delivered Not Received",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"marked_delivered_not_received\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Marked Delivered Still Not Located",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"marked_delivered_not_received\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\",\n  \"stillNotLocated\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "RTO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"shipment_showing_rto\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Reschedule Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"reschedule_delivery\",\n  \"preferredDate\": \"15-05-2026\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        },
+        {
+          "name": "Expedite Delivery",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"expedite_delivery\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/shipping/shipment-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "shipping", "shipment-flow"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customer Info",
+      "item": [
+        {
+          "name": "Address Phone Check",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"change_address_phone\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\"\n}"
+            },
+            "url": {  
+              "raw": "{{base_url}}/api/external/customer-info/change-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "customer-info", "change-flow"]
+            }
+          }
+        },
+        {
+          "name": "Address Phone Final",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"change_address_phone\",\n  \"trackWith\": \"order_no\",\n  \"refNo\": \"{{order_id}}\",\n  \"newAddress\": \"Test address\",\n  \"newPhone\": \"{{phone}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/customer-info/change-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "customer-info", "change-flow"]
+            }
+          }
+        },
+        {
+          "name": "GSTIN Before Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"update_gstin_after_order\",\n  \"stage\": \"before_checkout\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/customer-info/change-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "customer-info", "change-flow"]
+            }
+          }
+        },
+        {
+          "name": "GSTIN After Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"topic\": \"update_gstin_after_order\",\n  \"stage\": \"after_order_placed\",\n  \"gstin\": \"24ABCDE1234F1Z5\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/customer-info/change-flow",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "customer-info", "change-flow"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Care Panel",
+      "item": [
+        {
+          "name": "Open Tickets By Phone - All Issues",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{phone}}\",\n  \"issueIds\": \"all\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/care-panel/open-tickets",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "care-panel", "open-tickets"]
+            }
+          }
+        },
+        {
+          "name": "Open Tickets By Phone - Selected Issue IDs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-api-key",
+                "value": "{{api_key}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"{{phone}}\",\n  \"issueIds\": [1, 2, 3, 13, 14, 15]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/external/care-panel/open-tickets",
+              "host": ["{{base_url}}"],
+              "path": ["api", "external", "care-panel", "open-tickets"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
